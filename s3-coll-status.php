@@ -5,7 +5,7 @@
  */
 /*
 Plugin Name: SCOAP3 Collections Status
-Plugin URI: http://github.com/dziolas/scoap3-collections-status
+Plugin URI: http://github.com/scoap3/scoap3-collections-status
 Description: Adds a short code to display a dynamically updated table showing current articles count for different SCOAP3 collections
 Author: CERN
 Version: 0.5
@@ -13,7 +13,8 @@ Version: 0.5
 
 function create_collections_table() {
     global $journals;
-    $table = '<table id="tablepress-10" class="tablepress tablepress-id-10">
+    $table = '<p>Last update on: ' . date("d/m/Y") . '</p>
+              <table id="tablepress-10" class="tablepress tablepress-id-10">
                 <caption style="caption-side:bottom;text-align:left;border:none;background:none;margin:0;padding:0;"><a href="https://scoap3.org/wp-admin/admin.php?page=tablepress&amp;action=edit&amp;table_id=10">Edit</a></caption>
                 <thead>
                     <tr class="row-1 odd">
