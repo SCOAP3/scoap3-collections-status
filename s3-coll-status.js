@@ -55,6 +55,16 @@ function evenOdd(i){
     return (i % 2 == 0) ? 'even' : 'odd';
 }
 
+function formatMoney(n, c, d, t){
+    c = isNaN(c = Math.abs(c)) ? 2 : c,
+    d = d == undefined ? "." : d,
+    t = t == undefined ? "," : t,
+    s = n < 0 ? "-" : "",
+    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+    j = (j = i.length) > 3 ? j % 3 : 0;
+   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+ };
+
 function getCollectionsCount(){
     jQuery.getJSON( "https://repo.scoap3.org/tools.py/get_collections_count?callback=?", function( data ) {
         for(var key in data){
@@ -63,11 +73,11 @@ function getCollectionsCount(){
     var i = 0;
     var sum = 0;
         for(var key in journals) {
-            jQuery('#s3-collections-count').append('<tr class="row-2 '+ evenOdd(i) +'"><td class="column-1">'+journals[key]['full_name']+'</td><td class="column-2">'+journals[key]['publisher']+'</td><td class="column-3">'+journals[key]['count']+'</td></tr>');
+            jQuery('#s3-collections-count').append('<tr class="row-2 '+ evenOdd(i) +'"><td class="column-1">'+journals[key]['full_name']+'</td><td class="column-2">'+journals[key]['publisher']+'</td><td class="column-3">'+formatMoney(journals[key]['count'],0,',',' ')+'</td></tr>');
             i = i + 1;
         sum = sum + journals[key]['count'];
         };
-    jQuery('#s3-collections-count').append('<tr class="row-2 '+  evenOdd(i) +'"><td class="column-1"><b>Total</b></td><td class="column-2"></td><td class="column-3"><b>'+sum+'</b></td></tr>');
+    jQuery('#s3-collections-count').append('<tr class="row-2 '+  evenOdd(i) +'"><td class="column-1"><b>Total</b></td><td class="column-2"></td><td class="column-3"><b>'+formatMoney(sum,0,',',' ')+'</b></td></tr>');
         jQuery('#s3-count-loader').hide();
     });
 };
