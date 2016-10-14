@@ -15,7 +15,6 @@ function create_collections_table() {
     global $journals;
     $table = '<p>Last update on: ' . date("d/m/Y") . '</p>
               <table id="tablepress-10" class="tablepress tablepress-id-10">
-                <caption style="caption-side:bottom;text-align:left;border:none;background:none;margin:0;padding:0;"><a href="https://scoap3.org/wp-admin/admin.php?page=tablepress&amp;action=edit&amp;table_id=10">Edit</a></caption>
                 <thead>
                     <tr class="row-1 odd">
                         <th class="column-1">Journal Name</th><th class="column-2">Publisher</th><th class="column-3">Number of articles</th>
