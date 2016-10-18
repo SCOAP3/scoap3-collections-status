@@ -1,18 +1,17 @@
 <?php
 /**
- * @package SCOAP3_Collections_Status
- * @version 0.5
+ * @package SCOAP3 Status
+ * @version 0.6
  */
 /*
 Plugin Name: SCOAP3 Collections Status
 Plugin URI: http://github.com/scoap3/scoap3-collections-status
 Description: Adds a short code to display a dynamically updated table showing current articles count for different SCOAP3 collections
 Author: CERN
-Version: 0.5
+Version: 0.6
 */
 
 function create_collections_table() {
-    global $journals;
     $table = '<p>Last update on: ' . date("d/m/Y") . '</p>
               <table id="tablepress-10" class="tablepress tablepress-id-10">
                 <thead>
@@ -29,7 +28,22 @@ function create_collections_table() {
     return $table;
 }
 
+function create_repo_status($atts) {
+    $attributes = shortcode_atts( array(
+        'zero_value_filler' => 0,
+        'align' => 'center',
+    ), $atts );
+    $text = '<p id="scoap3_repo_status" style="text-align: '.$attributes['align'].';">
+                Articles funded by SCOAP<sup>3</sup><br>
+            </p>';
+    $text .= '<script type="text/javascript"><!--//--><![CDATA[//><!--
+                getRepoStatus('.$attributes['zero_value_filler'].');
+                //--><!]]></script>';
+    return $text;
+}
+
 wp_register_script('s3-coll-status', plugins_url('s3-coll-status.js', __FILE__ ), array('jquery'), NULL, false);
 wp_enqueue_script('s3-coll-status');
 
 add_shortcode( 'scoap3-collections-status', 'create_collections_table' );
+add_shortcode( 'scoap3-repository-stauts', 'create_repo_status' );

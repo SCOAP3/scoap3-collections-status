@@ -67,17 +67,38 @@ function formatMoney(n, c, d, t){
 
 function getCollectionsCount(){
     jQuery.getJSON( "https://repo.scoap3.org/tools.py/get_collections_count?callback=?", function( data ) {
-        for(var key in data){
-            journals[key]['count'] = data[key];
+        for(var key in data['journals']){
+            journals[key]['count'] = data['journals'][key];
         };
     var i = 0;
     var sum = 0;
         for(var key in journals) {
             jQuery('#s3-collections-count').append('<tr class="row-2 '+ evenOdd(i) +'"><td class="column-1">'+journals[key]['full_name']+'</td><td class="column-2">'+journals[key]['publisher']+'</td><td class="column-3">'+formatMoney(journals[key]['count'],0,',',' ')+'</td></tr>');
             i = i + 1;
-        sum = sum + journals[key]['count'];
         };
-    jQuery('#s3-collections-count').append('<tr class="row-2 '+  evenOdd(i) +'"><td class="column-1"><b>Total</b></td><td class="column-2"></td><td class="column-3"><b>'+formatMoney(sum,0,',',' ')+'</b></td></tr>');
+    jQuery('#s3-collections-count').append('<tr class="row-2 '+  evenOdd(i) +'"><td class="column-1"><b>Total</b></td><td class="column-2"></td><td class="column-3"><b>'+formatMoney(data['other']['all'],0,',',' ')+'</b></td></tr>');
         jQuery('#s3-count-loader').hide();
     });
 };
+
+function getRepoStatus(zero_value_filler){
+    jQuery.getJSON( "https://repo.scoap3.org/tools.py/get_collections_count?callback=?", function( data ) {
+        var date = new Date();
+        var month = date.getMonth()+1;
+        if (month < 10){
+            month = "0"+month;
+        };
+        var day = date.getDate();
+        if (day < 10){
+            day = "0"+day;
+        };
+        var today = date.getFullYear() + "-" + month + "-" + day;
+        var today_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + today + "'><strong>" + formatMoney(data['other']['today'],0,',',' ') + "</strong></a>"
+        var this_year_url = "<a href='http://repo.scoap3.org/search?p=year:" + date.getFullYear() + "'><strong>" + formatMoney(data['other']['this_year'],0,',',' ') + "</strong></a>"
+        var all = "<a href='http://repo.scoap3.org/search'><strong>" + formatMoney(data['other']['all'],0,',',' ') + "</strong></a>"
+
+        jQuery('#scoap3_repo_status').append("Today: " + today_url +
+                                             "&nbsp;&nbsp;&nbsp;&nbsp;This year: "+ this_year_url +
+                                             "&nbsp;&nbsp;&nbsp;&nbsp;Since 2014: "+ all);
+    });
+}
