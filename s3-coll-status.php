@@ -1,14 +1,14 @@
 <?php
 /**
  * @package SCOAP3 Status
- * @version 0.6
+ * @version 0.7
  */
 /*
-Plugin Name: SCOAP3 Collections Status
+Plugin Name: SCOAP3 Status
 Plugin URI: http://github.com/scoap3/scoap3-collections-status
 Description: Adds a short code to display a dynamically updated table showing current articles count for different SCOAP3 collections
 Author: CERN
-Version: 0.6
+Version: 0.7
 */
 
 function create_collections_table() {
@@ -30,20 +30,41 @@ function create_collections_table() {
 
 function create_repo_status($atts) {
     $attributes = shortcode_atts( array(
-        'zero_value_filler' => 0,
-        'align' => 'center',
+        'zero_value_filler' => '-'
     ), $atts );
-    $text = '<p id="scoap3_repo_status" style="text-align: '.$attributes['align'].';">
-                Articles funded by SCOAP<sup>3</sup><br>
-            </p>';
+    $text = '<div class="scoap3_repo_cell" id="scoap3_header_out">Articles funded by SCOAP<sup>3</sup>:</div>
+          <div class="scoap3_repo_table">
+                    <div class="scoap3_repo_row">
+                        <div class="scoap3_repo_cell" id="scoap3_header_in">Articles funded by SCOAP<sup>3</sup>:</div>
+                        <div class="scoap3_repo_cell value">
+                <span id="scoap3_repo_status_today">'. $attributes['zero_value_filler'] .'</span>
+                <span class="description">today</span>
+            </div>
+                        <div class="scoap3_repo_cell value">
+                <span id="scoap3_repo_status_last_30_days">'. $attributes['zero_value_filler'] .'</span>
+                <span class="description">last 30 days</span>
+            </div>
+                        <div class="scoap3_repo_cell value">
+                <span id="scoap3_repo_status_this_year">'. $attributes['zero_value_filler'] .'</span>
+                <span class="description">in 2016</span>
+            </div>
+                        <div class="scoap3_repo_cell value">
+                <span id="scoap3_repo_status_all">'. $attributes['zero_value_filler'] .'</span>
+                <span class="description">since 2014</span>
+            </div>
+                    </div>
+                </div>';
     $text .= '<script type="text/javascript"><!--//--><![CDATA[//><!--
-                getRepoStatus('.$attributes['zero_value_filler'].');
+                getRepoStatus("'.$attributes['zero_value_filler'].'");
                 //--><!]]></script>';
     return $text;
 }
+
+wp_register_style('s3-status-style', plugins_url('s3-status.css', __FILE__ ));
+wp_enqueue_style('s3-status-style');
 
 wp_register_script('s3-coll-status', plugins_url('s3-coll-status.js', __FILE__ ), array('jquery'), NULL, false);
 wp_enqueue_script('s3-coll-status');
 
 add_shortcode( 'scoap3-collections-status', 'create_collections_table' );
-add_shortcode( 'scoap3-repository-stauts', 'create_repo_status' );
+add_shortcode( 'scoap3-repository-status', 'create_repo_status' );

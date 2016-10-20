@@ -81,24 +81,32 @@ function getCollectionsCount(){
     });
 };
 
+function getDateString(date){
+    var month = date.getMonth()+1;
+    if (month < 10){
+        month = "0"+month;
+    };
+    var day = date.getDate();
+    if (day < 10){
+        day = "0"+day;
+    };
+    return date.getFullYear() + "-" + month + "-" + day;
+};
+
 function getRepoStatus(zero_value_filler){
     jQuery.getJSON( "https://repo.scoap3.org/tools.py/get_collections_count?callback=?", function( data ) {
-        var date = new Date();
-        var month = date.getMonth()+1;
-        if (month < 10){
-            month = "0"+month;
-        };
-        var day = date.getDate();
-        if (day < 10){
-            day = "0"+day;
-        };
-        var today = date.getFullYear() + "-" + month + "-" + day;
-        var today_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + today + "'><strong>" + formatMoney(data['other']['today'],0,',',' ') + "</strong></a>"
-        var this_year_url = "<a href='http://repo.scoap3.org/search?p=year:" + date.getFullYear() + "'><strong>" + formatMoney(data['other']['this_year'],0,',',' ') + "</strong></a>"
-        var all = "<a href='http://repo.scoap3.org/search'><strong>" + formatMoney(data['other']['all'],0,',',' ') + "</strong></a>"
+    var date = new Date();
+    var today = getDateString(date);
+    date.setDate(date.getDate() - 30);
+    minus_30 = getDateString(date);
+    var today_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + today + "'>" + formatMoney(data['other']['today'],0,',',' ') + "</a>"
+    var last_30_days_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + minus_30 + "->" + today + "'>" + formatMoney(data['other']['last_30_days'],0,',',' ') + "</a>"
+    var this_year_url = "<a href='http://repo.scoap3.org/search?p=year:" + date.getFullYear() + "'>" + formatMoney(data['other']['this_year'],0,',',' ') + "</a>"
+    var all = "<a href='http://repo.scoap3.org/search'>" + formatMoney(data['other']['all'],0,',',' ') + "</a>"
 
-        jQuery('#scoap3_repo_status').append("Today: " + today_url +
-                                             "&nbsp;&nbsp;&nbsp;&nbsp;This year: "+ this_year_url +
-                                             "&nbsp;&nbsp;&nbsp;&nbsp;Since 2014: "+ all);
+    jQuery('#scoap3_repo_status_today').html(today_url);
+    jQuery('#scoap3_repo_status_last_30_days').html(last_30_days_url);
+    jQuery('#scoap3_repo_status_this_year').html(this_year_url);
+    jQuery('#scoap3_repo_status_all').html(all);
     });
 }

@@ -1,0 +1,47 @@
+#scoap3_header_out, .scoap3_repo_table{
+    font-family: "PT Sans Narrow",sans-serif;
+    margin:0 auto;
+        display: table;
+        color: #707070;
+}
+#scoap3_header_out{
+    text-align:center;
+    display:none;
+}
+.scoap3_repo_table strong{
+    color: #7b5380;
+}
+.scoap3_repo_cell.value{
+    padding:0 15px;
+    font-size: 22px;
+    font-weight: normal;
+}
+.value .description{
+display: block;
+    padding-top:5px;
+    font-size: 14px;
+    font-weight: 100;
+}
+.scoap3_repo_cell{
+    font-size: 17px;
+    text-align: left;
+    display: table-cell;
+    vertical-align: middle;
+}
+.scoap3_repo_row{
+    display: table-row;
+}
+.scoap3_repo_cell:nth-child(1){
+    padding-right:28px;
+}
+.scoap3_repo_cell:nth-child(5){
+    padding-left:25px;
+}
+@media screen and (max-width: 502px) {
+    #scoap3_header_out{
+        display:block;
+    }
+    #scoap3_header_in{
+        display:none;
+    }
+}
