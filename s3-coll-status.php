@@ -10,6 +10,9 @@ Description: Adds a short code to display a dynamically updated table showing cu
 Author: CERN
 Version: 0.7
 */
+wp_register_script('s3-coll-status', plugins_url('s3-coll-status.js', __FILE__ ), array('jquery'), NULL, false);
+wp_enqueue_script('s3-coll-status');
+
 
 function create_collections_table() {
     $table = '<p>Last update on: ' . date("d/m/Y") . '</p>
@@ -62,9 +65,6 @@ function create_repo_status($atts) {
 
 wp_register_style('s3-status-style', plugins_url('s3-status.css', __FILE__ ));
 wp_enqueue_style('s3-status-style');
-
-wp_register_script('s3-coll-status', plugins_url('s3-coll-status.js', __FILE__ ), array('jquery'), NULL, false);
-wp_enqueue_script('s3-coll-status');
 
 add_shortcode( 'scoap3-collections-status', 'create_collections_table' );
 add_shortcode( 'scoap3-repository-status', 'create_repo_status' );

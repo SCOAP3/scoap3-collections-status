@@ -51,9 +51,16 @@ var journals = {
     }
 };
 
+var scoap3_collection_status;
+function init(){
+    jQuery.getJSON( "https://repo.scoap3.org/tools.py/get_collections_count?callback=?", function( data ){
+        scoap3_collection_status = data;
+    });
+}
+
 function evenOdd(i){
     return (i % 2 == 0) ? 'even' : 'odd';
-}
+};
 
 function formatMoney(n, c, d, t){
     c = isNaN(c = Math.abs(c)) ? 2 : c,
@@ -66,19 +73,22 @@ function formatMoney(n, c, d, t){
  };
 
 function getCollectionsCount(){
-    jQuery.getJSON( "https://repo.scoap3.org/tools.py/get_collections_count?callback=?", function( data ) {
-        for(var key in data['journals']){
-            journals[key]['count'] = data['journals'][key];
-        };
+    //jQuery.getJSON( "https://repo.scoap3.org/tools.py/get_collections_count?callback=?", function( data ) {
+    if(scoap3_collection_status == undefined){
+        init();
+    };
+    for(var key in scoap3_collection_status['journals']){
+        journals[key]['count'] = scoap3_collection_status['journals'][key];
+    };
     var i = 0;
     var sum = 0;
         for(var key in journals) {
             jQuery('#s3-collections-count').append('<tr class="row-2 '+ evenOdd(i) +'"><td class="column-1">'+journals[key]['full_name']+'</td><td class="column-2">'+journals[key]['publisher']+'</td><td class="column-3">'+formatMoney(journals[key]['count'],0,',',' ')+'</td></tr>');
             i = i + 1;
         };
-    jQuery('#s3-collections-count').append('<tr class="row-2 '+  evenOdd(i) +'"><td class="column-1"><b>Total</b></td><td class="column-2"></td><td class="column-3"><b>'+formatMoney(data['other']['all'],0,',',' ')+'</b></td></tr>');
-        jQuery('#s3-count-loader').hide();
-    });
+    jQuery('#s3-collections-count').append('<tr class="row-2 '+  evenOdd(i) +'"><td class="column-1"><b>Total</b></td><td class="column-2"></td><td class="column-3"><b>'+formatMoney(scoap3_collection_status['other']['all'],0,',',' ')+'</b></td></tr>');
+    jQuery('#s3-count-loader').hide();
+    //});
 };
 
 function getDateString(date){
@@ -94,19 +104,22 @@ function getDateString(date){
 };
 
 function getRepoStatus(zero_value_filler){
-    jQuery.getJSON( "https://repo.scoap3.org/tools.py/get_collections_count?callback=?", function( data ) {
+    //jQuery.getJSON( "https://repo.scoap3.org/tools.py/get_collections_count?callback=?", function( data ) {
+    if(scoap3_collection_status == undefined){
+        init();
+    };
     var date = new Date();
     var today = getDateString(date);
     date.setDate(date.getDate() - 30);
     minus_30 = getDateString(date);
-    var today_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + today + "'>" + formatMoney(data['other']['today'],0,',',' ') + "</a>"
-    var last_30_days_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + minus_30 + "->" + today + "'>" + formatMoney(data['other']['last_30_days'],0,',',' ') + "</a>"
-    var this_year_url = "<a href='http://repo.scoap3.org/search?p=year:" + date.getFullYear() + "'>" + formatMoney(data['other']['this_year'],0,',',' ') + "</a>"
-    var all = "<a href='http://repo.scoap3.org/search'>" + formatMoney(data['other']['all'],0,',',' ') + "</a>"
+    var today_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + today + "'>" + formatMoney(scoap3_collection_status['other']['today'],0,',',' ') + "</a>"
+    var last_30_days_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + minus_30 + "->" + today + "'>" + formatMoney(scoap3_collection_status['other']['last_30_days'],0,',',' ') + "</a>"
+    var this_year_url = "<a href='http://repo.scoap3.org/search?p=year:" + date.getFullYear() + "'>" + formatMoney(scoap3_collection_status['other']['this_year'],0,',',' ') + "</a>"
+    var all = "<a href='http://repo.scoap3.org/search'>" + formatMoney(scoap3_collection_status['other']['all'],0,',',' ') + "</a>"
 
     jQuery('#scoap3_repo_status_today').html(today_url);
     jQuery('#scoap3_repo_status_last_30_days').html(last_30_days_url);
     jQuery('#scoap3_repo_status_this_year').html(this_year_url);
     jQuery('#scoap3_repo_status_all').html(all);
-    });
+    //});
 }
