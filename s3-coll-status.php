@@ -1,14 +1,14 @@
 <?php
 /**
  * @package SCOAP3 Status
- * @version 0.7
+ * @version 0.7.1
  */
 /*
 Plugin Name: SCOAP3 Status
 Plugin URI: http://github.com/scoap3/scoap3-collections-status
 Description: Adds a short code to display a dynamically updated table showing current articles count for different SCOAP3 collections
 Author: CERN
-Version: 0.7
+Version: 0.7.1
 */
 wp_register_script('s3-coll-status', plugins_url('s3-coll-status.js', __FILE__ ), array('jquery'), NULL, false);
 wp_enqueue_script('s3-coll-status');
@@ -63,8 +63,20 @@ function create_repo_status($atts) {
     return $text;
 }
 
+function create_collection_count($atts) {
+    $attributes = shortcode_atts( array(
+        'name' => 'Acta'
+    ), $atts );
+    $text = '<span class="scoap3_collection_count_'.str_replace(' ','_',$attributes['name']).'">-</span>';
+    $text .= '<script type="text/javascript"><!--//--><![CDATA[//><!--
+                getCollectionCount("'.$attributes['name'].'");
+                //--><!]]></script>';
+    return $text;
+}
+
 wp_register_style('s3-status-style', plugins_url('s3-status.css', __FILE__ ));
 wp_enqueue_style('s3-status-style');
 
 add_shortcode( 'scoap3-collections-status', 'create_collections_table' );
 add_shortcode( 'scoap3-repository-status', 'create_repo_status' );
+add_shortcode( 'scoap3-collection-count', 'create_collection_count' );
