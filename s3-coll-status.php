@@ -53,7 +53,7 @@ function create_repo_status($atts) {
             </div>
                         <div class="scoap3_repo_cell value">
                 <span id="scoap3_repo_status_all">'. $attributes['zero_value_filler'] .'</span>
-                <span class="description">since 2014</span>
+                <span class="description">since '. date("Y") .'</span>
             </div>
                     </div>
                 </div>';

@@ -98,9 +98,10 @@ function getRepoStatus(zero_value_filler){
     jQuery.getJSON( "https://repo.scoap3.org/tools.py/get_collections_count?callback=?", function( data ) {
         var scoap3_collection_status = data;
         var date = new Date();
+    var date_minus_30 = new Date();
         var today = getDateString(date);
-        date.setDate(date.getDate() - 30);
-        minus_30 = getDateString(date);
+        date_minus_30.setDate(date.getDate() - 30);
+        minus_30 = getDateString(date_minus_30);
         var today_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + today + "'>" + formatMoney(scoap3_collection_status['other']['today'],0,',',' ') + "</a>"
         var last_30_days_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + minus_30 + "->" + today + "'>" + formatMoney(scoap3_collection_status['other']['last_30_days'],0,',',' ') + "</a>"
         var this_year_url = "<a href='http://repo.scoap3.org/search?p=year:" + date.getFullYear() + "'>" + formatMoney(scoap3_collection_status['other']['this_year'],0,',',' ') + "</a>"
