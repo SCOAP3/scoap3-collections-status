@@ -98,16 +98,21 @@ function getRepoStatus(zero_value_filler){
     jQuery.getJSON( "https://repo.scoap3.org/tools.py/get_collections_count?callback=?", function( data ) {
         var scoap3_collection_status = data;
         var date = new Date();
-    var date_minus_30 = new Date();
-        var today = getDateString(date);
+
+        var date_yesterday = new Date();
+        date_yesterday.setDate(date.getDate() - 1);
+        yesterday = getDateString(date_yesterday);
+
+        var date_minus_30 = new Date();
         date_minus_30.setDate(date.getDate() - 30);
         minus_30 = getDateString(date_minus_30);
-        var today_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + today + "'>" + formatMoney(scoap3_collection_status['other']['today'],0,',',' ') + "</a>"
-        var last_30_days_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + minus_30 + "->" + today + "'>" + formatMoney(scoap3_collection_status['other']['last_30_days'],0,',',' ') + "</a>"
+
+        var yesterday_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + yesterday + "'>" + formatMoney(scoap3_collection_status['other']['yesterday'],0,',',' ') + "</a>"
+        var last_30_days_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + minus_30 + "->" + yesterday + "'>" + formatMoney(scoap3_collection_status['other']['last_30_days'],0,',',' ') + "</a>"
         var this_year_url = "<a href='http://repo.scoap3.org/search?p=year:" + date.getFullYear() + "'>" + formatMoney(scoap3_collection_status['other']['this_year'],0,',',' ') + "</a>"
         var all = "<a href='http://repo.scoap3.org/search'>" + formatMoney(scoap3_collection_status['other']['all'],0,',',' ') + "</a>"
 
-        jQuery('#scoap3_repo_status_today').html(today_url);
+        jQuery('#scoap3_repo_status_yesterday').html(yesterday_url);
         jQuery('#scoap3_repo_status_last_30_days').html(last_30_days_url);
         jQuery('#scoap3_repo_status_this_year').html(this_year_url);
         jQuery('#scoap3_repo_status_all').html(all);

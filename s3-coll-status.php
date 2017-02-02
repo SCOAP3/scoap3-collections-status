@@ -40,8 +40,8 @@ function create_repo_status($atts) {
                     <div class="scoap3_repo_row">
                         <div class="scoap3_repo_cell" id="scoap3_header_in">Articles funded by SCOAP<sup>3</sup>:</div>
                         <div class="scoap3_repo_cell value">
-                <span id="scoap3_repo_status_today">'. $attributes['zero_value_filler'] .'</span>
-                <span class="description">today</span>
+                <span id="scoap3_repo_status_yesterday">'. $attributes['zero_value_filler'] .'</span>
+                <span class="description">yesterday</span>
             </div>
                         <div class="scoap3_repo_cell value">
                 <span id="scoap3_repo_status_last_30_days">'. $attributes['zero_value_filler'] .'</span>
@@ -49,11 +49,11 @@ function create_repo_status($atts) {
             </div>
                         <div class="scoap3_repo_cell value">
                 <span id="scoap3_repo_status_this_year">'. $attributes['zero_value_filler'] .'</span>
-                <span class="description">in 2016</span>
+                <span class="description">in '. date("Y") .'</span>
             </div>
                         <div class="scoap3_repo_cell value">
                 <span id="scoap3_repo_status_all">'. $attributes['zero_value_filler'] .'</span>
-                <span class="description">since '. date("Y") .'</span>
+                <span class="description">since 2014</span>
             </div>
                     </div>
                 </div>';
