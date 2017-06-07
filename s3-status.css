@@ -1,8 +1,7 @@
 #scoap3_header_out, .scoap3_repo_table{
-    font-family: "PT Sans Narrow",sans-serif;
     margin:0 auto;
-        display: table;
-        color: #707070;
+    display: table;
+    color: #707070;
 }
 #scoap3_header_out{
     text-align:center;
@@ -17,7 +16,7 @@
     font-weight: normal;
 }
 .value .description{
-display: block;
+    display: block;
     padding-top:5px;
     font-size: 14px;
     font-weight: 100;
