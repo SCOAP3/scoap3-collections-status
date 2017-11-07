@@ -107,10 +107,10 @@ function getRepoStatus(zero_value_filler){
         date_minus_30.setDate(date.getDate() - 30);
         minus_30 = getDateString(date_minus_30);
 
-        var yesterday_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + yesterday + "'>" + formatMoney(scoap3_collection_status['other']['yesterday'],0,',',' ') + "</a>"
-        var last_30_days_url = "<a href='http://repo.scoap3.org/search?p=datecreated:" + minus_30 + "->" + yesterday + "'>" + formatMoney(scoap3_collection_status['other']['last_30_days'],0,',',' ') + "</a>"
-        var this_year_url = "<a href='http://repo.scoap3.org/search?p=year:" + date.getFullYear() + "'>" + formatMoney(scoap3_collection_status['other']['this_year'],0,',',' ') + "</a>"
-        var all = "<a href='http://repo.scoap3.org/search'>" + formatMoney(scoap3_collection_status['other']['all'],0,',',' ') + "</a>"
+        var yesterday_url = "<a href='https://repo.scoap3.org/search?p=datecreated:" + yesterday + "'>" + formatMoney(scoap3_collection_status['other']['yesterday'],0,',',' ') + "</a>"
+        var last_30_days_url = "<a href='https://repo.scoap3.org/search?p=datecreated:" + minus_30 + "->" + yesterday + "'>" + formatMoney(scoap3_collection_status['other']['last_30_days'],0,',',' ') + "</a>"
+        var this_year_url = "<a href='https://repo.scoap3.org/search?p=year:" + date.getFullYear() + "'>" + formatMoney(scoap3_collection_status['other']['this_year'],0,',',' ') + "</a>"
+        var all = "<a href='https://repo.scoap3.org/search'>" + formatMoney(scoap3_collection_status['other']['all'],0,',',' ') + "</a>"
 
         jQuery('#scoap3_repo_status_yesterday').html(yesterday_url);
         jQuery('#scoap3_repo_status_last_30_days').html(last_30_days_url);
