@@ -48,6 +48,21 @@ var journals = {
         "full_name":"Progress of Theoretical and Experimental Physics",
         "publisher":"Oxford University Press / Japanese Physical Society",
     "count":0
+    },
+   "Physical Review C": {
+        "full_name":"Physical Review C",
+        "publisher":"American Physical Society",
+    "count":0
+    },
+   "Physical Review D": {
+        "full_name":"Physical Review D",
+        "publisher":"American Physical Society",
+    "count":0
+    },
+   "Physical Review Letters": {
+        "full_name":"Physical Review Letters",
+        "publisher":"American Physical Society",
+    "count":0
     }
 };
 
