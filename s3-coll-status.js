@@ -39,17 +39,7 @@ var journals = {
         "publisher":"Elsevier",
     "count":0
     },
-   "Physics Letters B": {
-        "full_name":"Physics Letters B",
-        "publisher":"Elsevier",
-    "count":0
-    },
-   "Progress of Theoretical and Experimental Physics": {
-        "full_name":"Progress of Theoretical and Experimental Physics",
-        "publisher":"Oxford University Press / Japanese Physical Society",
-    "count":0
-    },
-   "Physical Review C": {
+       "Physical Review C": {
         "full_name":"Physical Review C",
         "publisher":"American Physical Society",
     "count":0
@@ -62,6 +52,16 @@ var journals = {
    "Physical Review Letters": {
         "full_name":"Physical Review Letters",
         "publisher":"American Physical Society",
+    "count":0
+    }
+   "Physics Letters B": {
+        "full_name":"Physics Letters B",
+        "publisher":"Elsevier",
+    "count":0
+    },
+   "Progress of Theoretical and Experimental Physics": {
+        "full_name":"Progress of Theoretical and Experimental Physics",
+        "publisher":"Oxford University Press / Japanese Physical Society",
     "count":0
     }
 };
